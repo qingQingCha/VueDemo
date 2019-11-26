@@ -1,7 +1,7 @@
-<!--  -->
+<!-- 个人主页 -->
 <template>
   <div>
-    APP
+    个人主页
   </div>
 </template>
 

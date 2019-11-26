@@ -1,7 +1,7 @@
-<!--  -->
+<!-- 底部菜单栏 -->
 <template>
   <div>
-    APP
+    底部菜单栏
   </div>
 </template>
 

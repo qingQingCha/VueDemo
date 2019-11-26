@@ -1,7 +1,7 @@
-<!--  -->
+<!-- 首页 -->
 <template>
   <div>
-    APP
+    首页
   </div>
 </template>
 

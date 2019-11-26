@@ -1,7 +1,7 @@
-<!--  -->
+<!-- 搜索组件 -->
 <template>
   <div>
-    APP
+    搜索
   </div>
 </template>
 
