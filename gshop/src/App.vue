@@ -10,31 +10,31 @@
 import FooterGuide from './components/FooterGuide/FooterGuide'
 
 export default {
-// import所引入的组件注册
-components: {
-  FooterGuide
-},
+  // import所引入的组件注册
+  components: {
+    FooterGuide
+  },
 
-data() {
-  return {
+  data () {
+    return {
 
-  };
-},
+    }
+  },
 
-// 监听属性
-computed: {
+  // 监听属性
+  computed: {
 
-},
+  },
 
-// 监控data中的数据变化
-watch: {
+  // 监控data中的数据变化
+  watch: {
 
-},
+  },
 
-// 方法集合
-methods: {
+  // 方法集合
+  methods: {
 
-}
+  }
 }
 </script>
 <style lang='stylus' rel='stylesheet/stylus'>

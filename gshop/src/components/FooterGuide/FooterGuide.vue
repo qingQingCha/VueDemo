@@ -39,10 +39,10 @@ export default {
 
   },
 
-  data() {
+  data () {
     return {
 
-    };
+    }
   },
 
   // 监听属性
