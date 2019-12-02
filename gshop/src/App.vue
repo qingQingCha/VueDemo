@@ -6,13 +6,18 @@
 </template>
 
 <script>
-// 导入的其他文件 例如：import moduleName from 'modulePath';
+import {mapActions} from 'vuex'
 import FooterGuide from './components/FooterGuide/FooterGuide'
 
 export default {
   // import所引入的组件注册
   components: {
     FooterGuide
+  },
+
+  mounted () {
+    // this.$store.dispatch('getAddress') // 发起请求的一种方式，另一种方式，使用映射函数
+    this.getAddress()
   },
 
   data () {
@@ -33,7 +38,7 @@ export default {
 
   // 方法集合
   methods: {
-
+    ...mapActions(['getAddress'])
   }
 }
 </script>

@@ -15,3 +15,22 @@
 
 ## 使用swiper实现首页轮播效果
   npm i --save swiper
+
+## 前后台交互 ajax 
+  npm install --save axios
+
+## 使用git对项目进行版本控制
+  #### 生成本地仓库
+  git init
+  git add *
+  git commit -m "init gshop"
+  #### 创建远程仓库
+    登录git新建一个仓库
+  #### 将本地仓库推送到远程仓库  
+    复制关联代码 git remote add origin https://***(仓库的地址)
+    关联完毕，在推送 git push origin master
+
+
+## 使用 vuex 管理状态
+  npm install --save vuex
+

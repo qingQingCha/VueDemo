@@ -2,7 +2,7 @@
 <template>
   <div class="msite">
     <!--首页头部-->
-    <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
+    <HeaderTop :title="address.name">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
@@ -135,6 +135,7 @@
 // 导入的其他文件 例如：import moduleName from 'modulePath';
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
 import ShopList from '../../components/ShopList/ShopList'
+import {mapState} from 'vuex'
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css' // 可以在node_modules下面的swiper文件夹中查看
 
@@ -149,6 +150,10 @@ export default {
     })
   },
 
+  computed: {
+    ...mapState(['address'])
+  },
+
   // import所引入的组件注册
   components: {
     HeaderTop,
@@ -159,11 +164,6 @@ export default {
     return {
 
     }
-  },
-
-  // 监听属性
-  computed: {
-
   },
 
   // 监控data中的数据变化
