@@ -22,13 +22,13 @@ export default {
   },
 
   // 异步获取食品分类列表
-  async getCatagroys ({commit}) {
+  async getCatagorys ({commit}) {
     // 发送异步ajax请求
     const result = await reqFoodCategorys()
     // 提交一个mutation
     if (result.code === 0) {
-      const catagroys = result.data
-      commit(RECEIVE_CATEGORYS, {catagroys})
+      const catagorys = result.data
+      commit(RECEIVE_CATEGORYS, {catagorys})
     }
   },
 
