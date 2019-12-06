@@ -50,8 +50,6 @@ import 'swiper/css/swiper.min.css' // 可以在node_modules下面的swiper文件
 export default {
   mounted () {
     this.$store.dispatch('getCatagorys')
-
-    
   },
 
   computed: {
@@ -103,7 +101,7 @@ export default {
        * Swiper实例对象需要在categorys获取到数据后才进行渲染显示，
        * 但是数据的变化和界面的重新渲染展示分为两步，页面的更新是异步执行的
        * 需要页面更新后就立即创建Swiper对象
-       * $nextTick([callback]) 将回调函数延迟到下次DOM更你想你循环之后执行。
+       * $nextTick([callback]) 将回调函数延迟到下次DOM更新循环之后执行。
        * 在数据修改之后立即使用它，然后等待DOM更新
        */
       this.$nextTick(() => { // 此语句要在数据修改之后才调用
