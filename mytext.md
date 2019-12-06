@@ -33,4 +33,10 @@
 
 ## 使用 vuex 管理状态
   npm install --save vuex
-
+## 脚手架版本
+  #### cli2：
+    在已安装好cli3的基础上安装：npm i -g @vue/cli-init
+    创建项目: vue init webpack xxx(项目的名字)
+  #### cli3：
+    安装： npm i -g @vue/cli
+    创建项目: vue create xxx(项目的名字)
