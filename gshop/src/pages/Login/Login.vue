@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="login_content">
-        <form>
+        <form @submit.prevent="login">
           <div :class="{on: loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
@@ -17,7 +17,7 @@
                       @click.prevent="getCode">{{computeTime > 0 ? `已发送(${computeTime}s)` : '获取验证码'}}</button>
             </section>
             <section class="login_verification">
-              <input type="tel" maxlength="8" placeholder="验证码">
+              <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
             </section>
             <section class="login_hint">
               温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
@@ -27,7 +27,7 @@
           <div :class="{on: !loginWay}">
             <section>
               <section class="login_message">
-                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
               </section>
               <section class="login_verification">
                 <input type="password" maxlength="8" placeholder="密码" v-if="showPwd" v-model="pwd">
@@ -38,7 +38,7 @@
                 </div>
               </section>
               <section class="login_message">
-                <input type="text" maxlength="11" placeholder="验证码">
+                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
                 <img class="get_verification" src="./captcha.svg" alt="captcha">
               </section>
             </section>
@@ -47,23 +47,32 @@
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
-      <a href="javascript:" class="go_back" @click="$router.go(-1)">
+      <a href="javascript:" class="go_back" @click="$router.back()">
         <i class="iconfont icon-jiantou2"></i>
       </a>
     </div>
+    <AlertTip :alertText="alertText" v-show="alertShow" @closeTip="closeTip"></AlertTip>
   </div>
 </template>
 
 <script>
-
+import AlertTip from '../../components/AlertTip/AlertTip'
 export default {
+  components: {
+    AlertTip
+  },
   data () {
     return {
       loginWay: true, // true-短信登录;;false-密码登录
       computeTime: 0, // 计时时间
       showPwd: false, // 是否显示密码
       phone: '', // 手机号
-      pwd: '' // 密码
+      code: '', // 短信验证码
+      name: '', // 用户名
+      pwd: '', // 密码
+      captcha: '', // 图形验证码
+      alertText: '', // 提示文本
+      alertShow: false // 提示框的展示标志
     }
   },
   computed: {
@@ -72,6 +81,7 @@ export default {
     }
   },
   methods: {
+    // 异步获取短信验证码
     getCode () {
       if (!this.computeTime) {
         // 启动倒计时
@@ -84,6 +94,38 @@ export default {
         }, 1000)
       }
       // 发送ajax请求（向所输入的手机号发送验证码短信）
+    },
+
+    login () {
+      const {showAlert} = this
+      // 前台表单验证
+      if (this.loginWay) { // 登录方式 - 短信登录
+        const {right_phone, phone, code} = this
+        if (!right_phone) { // 手机号不正确
+          showAlert('手机号不正确')
+        } else if (!/^\d{6}$/.test(code)) { // 验证码必须是6位数字
+          showAlert('验证码必须是6位数字')
+        }
+      } else { // 登录方式 - 密码登录
+        const {name, pwd, captcha} = this
+        if (!this.name) { // 未输入用户名
+          showAlert('未输入用户名')
+        } else if (!this.pwd) { // 未输入密码
+          showAlert('未输入密码')
+        } else if (!this.captcha) { // 未输入图形验证码
+          showAlert('未输入图形验证码')
+        }
+      }
+    },
+
+    showAlert (msg) {
+      this.alertShow = true
+      this.alertText = msg
+    },
+
+    closeTip () {
+      this.alertText = ''
+      this.alertShow = false
     }
   }
 }
