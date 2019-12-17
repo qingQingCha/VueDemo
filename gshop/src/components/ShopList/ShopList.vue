@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapState} from 'vuex'
 import Star from '../Star/Star'
 export default {
   component: {
@@ -64,7 +64,7 @@ export default {
   },
 
   computed: {
-   ...mapState(['shops']) 
+    ...mapState(['shops'])
   }
 }
 </script>

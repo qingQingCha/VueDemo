@@ -5,43 +5,43 @@
 </template>
 
 <script>
-  const CLASS_ON = 'on'
-  const CLASS_HALF = 'half'
-  const CLASS_OFF = 'off'
-  export default {
-    props: {
-      score: Number,
-      size: Number // 图片的尺寸（24, 36, 48）
-    },
-    computed: {
-      starClasses() {
-        const {score} = this
-        const scs = []
-        // scs中half的个数只能为0或1
-        const  onCount = Math.floor(score) // 向下取整，获取scroe的整数部分，即--on的个数
-        // 向scs数组中添加onCount个on
-        for (let index = 0; index < onCount; index++) {
-          scs.push(CLASS_ON)
-        }
-        if (score * 10 - onCount * 10 >= 5) {
-          scs.push(CLASS_HALF)
-        }
-        while (scs.length < 5) {
-          scs.push(CLASS_OFF)
-        }
-        // 自己想的办法
-        // const halfCount = (score - onCount === 0.5) ? 1 : 0
-        // if (halfCount) {
-        //   scs.push(CLASS_HALF)
-        // }
-        // const offCount = 5 - onCount - halfCount
-        // for (let index = 0; index < offCount; index++) {
-        //   scs.push(CLASS_OFF)
-        // }
-        return scs
+const CLASS_ON = 'on'
+const CLASS_HALF = 'half'
+const CLASS_OFF = 'off'
+export default {
+  props: {
+    score: Number,
+    size: Number // 图片的尺寸（24, 36, 48）
+  },
+  computed: {
+    starClasses () {
+      const {score} = this
+      const scs = []
+      // scs中half的个数只能为0或1
+      const onCount = Math.floor(score) // 向下取整，获取scroe的整数部分，即--on的个数
+      // 向scs数组中添加onCount个on
+      for (let index = 0; index < onCount; index++) {
+        scs.push(CLASS_ON)
       }
+      if (score * 10 - onCount * 10 >= 5) {
+        scs.push(CLASS_HALF)
+      }
+      while (scs.length < 5) {
+        scs.push(CLASS_OFF)
+      }
+      // 自己想的办法
+      // const halfCount = (score - onCount === 0.5) ? 1 : 0
+      // if (halfCount) {
+      //   scs.push(CLASS_HALF)
+      // }
+      // const offCount = 5 - onCount - halfCount
+      // for (let index = 0; index < offCount; index++) {
+      //   scs.push(CLASS_OFF)
+      // }
+      return scs
     }
   }
+}
 </script>
 <style lang='stylus' rel='stylesheet/stylus'>
   @import '../../common/stylus/mixins.styl'
@@ -93,5 +93,4 @@
           bg-image('./images/star24_half')
         &.off
           bg-image('./images/star24_off')
-  
 </style>
