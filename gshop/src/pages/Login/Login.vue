@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import {reqSendCode, reqPwdLogin, reqSmsLogin} from '../../api'
 import AlertTip from '../../components/AlertTip/AlertTip'
 export default {
   components: {
@@ -83,18 +84,28 @@ export default {
   },
   methods: {
     // 异步获取短信验证码
-    getCode () {
+    async getCode () {
       if (!this.computeTime) {
         // 启动倒计时
         this.computeTime = 30
-        const intervalId = setInterval(() => {
+        this.intervalId = setInterval(() => {
           this.computeTime--
           if (this.computeTime <= 0) {
-            clearInterval(intervalId)
+            clearInterval(this.intervalId)
           }
         }, 1000)
       }
       // 发送ajax请求（向所输入的手机号发送验证码短信）
+      const result = await reqSendCode(this.phone)
+      if (result.code === 1) { // 发送失败
+        // 弹出提示框
+        this.showAlert(result.msg)
+        // 停止倒计时
+        if (this.computeTime) { // 倒计时秒数还未到0s
+          this.computeTime = 0
+          clearInterval(this.intervalId)
+        }
+      }
     },
 
     login () {
@@ -104,17 +115,22 @@ export default {
         const {right_phone, phone, code} = this
         if (!right_phone) { // 手机号不正确
           showAlert('手机号不正确')
+          return
         } else if (!/^\d{6}$/.test(code)) { // 验证码必须是6位数字
           showAlert('验证码必须是6位数字')
+          return
         }
       } else { // 登录方式 - 密码登录
         const {name, pwd, captcha} = this
         if (!this.name) { // 未输入用户名
           showAlert('未输入用户名')
+          return
         } else if (!this.pwd) { // 未输入密码
           showAlert('未输入密码')
+          return
         } else if (!this.captcha) { // 未输入图形验证码
           showAlert('未输入图形验证码')
+          return
         }
       }
     },

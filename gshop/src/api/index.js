@@ -15,11 +15,8 @@ export const reqShopsBySearch = (geohash, keyword) => ajax('/api/search_shops', 
 // [5、获取一次性验证码](#5 获取一次性验证码)<br/>
 export const reqCaptcha = () => ajax('/api/captcha')
 // [6、用户名密码登陆](#6 用户名密码登陆)<br/>
-export const reqPwdLogin = (name, pwd, captcha) => ajax('/api/login_pwd', {
-  name,
-  pwd,
-  captcha
-}, 'POST')
+// export const reqPwdLogin = (name, pwd, captcha) => ajax('/api/login_pwd', {name, pwd, captcha}, 'POST')
+export const reqPwdLogin = ({name, pwd, captcha}) => ajax('/api/login_pwd', {name, pwd, captcha}, 'POST')
 // [7、发送短信验证码](#7 发送短信验证码) -- 通过query形式传参
 export const reqSendCode = phone => ajax('/api/sendcode', {phone})
 // [8、手机号验证码登陆](#8 手机号验证码登陆) -- POST方式传参
