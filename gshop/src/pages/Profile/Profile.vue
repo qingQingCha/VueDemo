@@ -8,7 +8,7 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
+          <p class="user-info-top">{{userInfo._id || '登录/注册'}}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
@@ -93,8 +93,7 @@
 </template>
 
 <script>
-
-// 导入的其他文件 例如：import moduleName from 'modulePath';
+import {mapState} from 'vuex'
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
 export default {
 
@@ -111,7 +110,7 @@ export default {
 
   // 监听属性
   computed: {
-
+    ...mapState([userInfo])
   },
 
   // 监控data中的数据变化

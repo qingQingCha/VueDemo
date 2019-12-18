@@ -1,7 +1,7 @@
 /**
  * 通过mutation间接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO} from './mutation-types'
 import {
   reqAddress,
   reqFoodCategorys,
@@ -42,5 +42,9 @@ export default {
       const shops = result.data
       commit(RECEIVE_SHOPS, {shops})
     }
+  },
+
+  receiveInfo ({commit}, userInfo) {
+    commit(RECEIVE_USERINFO, {userInfo})
   }
 }

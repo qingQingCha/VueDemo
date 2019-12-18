@@ -148,6 +148,7 @@ export default {
         // 获取请求结果
         const user = result.data
         // 将user保存到vuex的state中
+        this.$store.dispatch('receiveInfo', user)
         // 跳转至个人用户页面
         this.$router.replace('/profile')
       } else {
