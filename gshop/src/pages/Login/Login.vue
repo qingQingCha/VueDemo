@@ -40,7 +40,7 @@
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
                 <!-- <img class="get_verification" src="./captcha.svg" alt="captcha"> -->
-                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha">
+                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
               </section>
             </section>
           </div>
@@ -108,8 +108,9 @@ export default {
       }
     },
 
-    login () {
+    async login () {
       const {showAlert} = this
+      let result = ''
       // 前台表单验证
       if (this.loginWay) { // 登录方式 - 短信登录
         const {right_phone, phone, code} = this
@@ -120,6 +121,7 @@ export default {
           showAlert('验证码必须是6位数字')
           return
         }
+        result = await reqSmsLogin(this.phone, this.code)
       } else { // 登录方式 - 密码登录
         const {name, pwd, captcha} = this
         if (!this.name) { // 未输入用户名
@@ -132,6 +134,27 @@ export default {
           showAlert('未输入图形验证码')
           return
         }
+        result = await reqSmsLogin(this.phone, this.code)
+      }
+
+      // 停止倒计时
+      if (this.computeTime) { // 倒计时秒数还未到0s
+        this.computeTime = 0
+        clearInterval(this.intervalId)
+      }
+
+      // 处理登录请求结果
+      if (result.code === 0) { // 登录成功
+        // 获取请求结果
+        const user = result.data
+        // 将user保存到vuex的state中
+        // 跳转至个人用户页面
+        this.$router.replace('/profile')
+      } else {
+        // 弹框
+        this.showAlert(result.msg)
+        // 重新请求图形验证码
+        this.getCaptcha()
       }
     },
 
@@ -145,9 +168,9 @@ export default {
       this.alertShow = false
     },
 
-    getCaptcha (event) {
+    getCaptcha () {
       // 每次指定的src值要不同
-      event.target.src = 'http://localhost:4000/captcha?time=' + Date.now()
+      this.$refs.captcha.src = 'http://localhost:4000/captcha?time=' + Date.now()
     }
   }
 }
