@@ -1,11 +1,13 @@
 /**
  * 通过mutation间接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO, LOGOUT_USER} from './mutation-types'
 import {
   reqAddress,
   reqFoodCategorys,
-  reqShops
+  reqShops,
+  reqUser,
+  reqLogout
 } from '../api'
 
 export default {
@@ -55,6 +57,13 @@ export default {
     if (result.code === 0) {
       const userInfo = result.data
       commit(RECEIVE_USERINFO, {userInfo})
+    }
+  },
+
+  async logout ({commit}) {
+    const result = await reqLogout()
+    if(result.code === 0) { // 登出成功
+      commit(LOGOUT_USER)
     }
   }
 }

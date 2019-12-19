@@ -1,7 +1,7 @@
 /**
  * 直接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO, LOGOUT_USER} from './mutation-types'
 export default {
   [RECEIVE_ADDRESS] (state, {address}) {
     state.address = address
@@ -17,5 +17,9 @@ export default {
 
   [RECEIVE_USERINFO] (state, {userInfo}) {
     state.userInfo = userInfo
+  },
+
+  [LOGOUT_USER] (state) {
+    state.userInfo = {}
   }
 }
