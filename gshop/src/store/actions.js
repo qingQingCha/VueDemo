@@ -44,7 +44,17 @@ export default {
     }
   },
 
+  // 同步记录用户信息
   receiveInfo ({commit}, userInfo) {
     commit(RECEIVE_USERINFO, {userInfo})
+  },
+
+  //异步获取用户登录信息
+  async getUserInfo({commit}) {
+    const result = await reqUser()
+    if (result.code === 0) {
+      const userInfo = result.data
+      commit(RECEIVE_USERINFO, {userInfo})
+    }
   }
 }
