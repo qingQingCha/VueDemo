@@ -114,7 +114,7 @@ export default {
 
   // 监听属性
   computed: {
-    ...mapState([userInfo])
+    ...mapState(['userInfo'])
   },
 
   // 监控data中的数据变化
@@ -129,7 +129,7 @@ export default {
         this.$store.dispatch('logout')
         Toast('成功登出！')
       }, cancel => {
-        console.log('点击了取消');
+        console.log('点击了取消')
       })
     }
   }

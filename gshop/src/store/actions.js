@@ -51,18 +51,18 @@ export default {
     commit(RECEIVE_USERINFO, {userInfo})
   },
 
-  //异步获取用户登录信息
-  async getUserInfo({commit}) {
+  // 异步获取用户登录信息
+  async getUserInfo ({commit}) {
     const result = await reqUser()
     if (result.code === 0) {
       const userInfo = result.data
       commit(RECEIVE_USERINFO, {userInfo})
     }
   },
-
+  // 异步登出
   async logout ({commit}) {
     const result = await reqLogout()
-    if(result.code === 0) { // 登出成功
+    if (result.code === 0) { // 登出成功
       commit(LOGOUT_USER)
     }
   }

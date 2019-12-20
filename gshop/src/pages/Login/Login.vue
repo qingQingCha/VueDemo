@@ -134,7 +134,7 @@ export default {
           showAlert('未输入图形验证码')
           return
         }
-        result = await reqSmsLogin(this.phone, this.code)
+        result = await reqPwdLogin(this.phone, this.code)
       }
 
       // 停止倒计时
