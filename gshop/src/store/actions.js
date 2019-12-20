@@ -1,13 +1,16 @@
 /**
  * 通过mutation间接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO, LOGOUT_USER} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO, LOGOUT_USER, RECEIVE_SHOPGOODS, RECEIVE_SHOPRATINGS, RECEIVE_SHOPINFO} from './mutation-types'
 import {
   reqAddress,
   reqFoodCategorys,
   reqShops,
   reqUser,
-  reqLogout
+  reqLogout,
+  reqShopGoods,
+  reqShopRatings,
+  reqShopInfo
 } from '../api'
 
 export default {
@@ -64,6 +67,30 @@ export default {
     const result = await reqLogout()
     if (result.code === 0) { // 登出成功
       commit(LOGOUT_USER)
+    }
+  },
+  // 异步获取商家商品信息
+  async getShopGoods ({commit}) {
+    const result = await reqShopGoods()
+    if (result.code === 0) {
+      const shopGoods = result.data
+      commit(RECEIVE_SHOPGOODS, {shopGoods})
+    }
+  },
+  // 异步获取商家商品信息
+  async getShopRatings ({commit}) {
+    const result = await reqShopRatings()
+    if (result.code === 0) {
+      const shopRatings = result.data
+      commit(RECEIVE_SHOPRATINGS, {shopRatings})
+    }
+  },
+  // 异步获取商家商品信息
+  async getShopInfo ({commit}) {
+    const result = await reqShopInfo()
+    if (result.code === 0) {
+      const shopInfo = result.data
+      commit(RECEIVE_SHOPINFO, {shopInfo})
     }
   }
 }
