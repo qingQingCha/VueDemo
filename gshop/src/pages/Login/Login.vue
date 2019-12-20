@@ -32,7 +32,7 @@
               <section class="login_verification">
                 <input type="password" maxlength="8" placeholder="密码" v-if="showPwd" v-model="pwd">
                 <input type="text" maxlength="8" placeholder="密码" v-else v-model="pwd">
-                <div class="switch_button off" :class="!showPwd ? 'on' : 'off'" @click="showPwd = !showPwd">
+                <div class="switch_button" :class="!showPwd ? 'on' : 'off'" @click="showPwd = !showPwd">
                   <div class="switch_circle" :class="{right: showPwd}"></div>
                   <span class="switch_text">{{showPwd ? '...' : 'abc'}}</span>
                 </div>
