@@ -47,3 +47,7 @@
     2. 两个登录面板信息的切换
   方法：
     使用一个变量loginWay来控制标签class属性on的有无
+
+## 滚动控件
+  1. 安装
+    - npm i --save better-scroll

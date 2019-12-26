@@ -70,11 +70,12 @@ export default {
     }
   },
   // 异步获取商家商品信息
-  async getShopGoods ({commit}) {
+  async getShopGoods ({commit}, callback) {
     const result = await reqShopGoods()
     if (result.code === 0) {
       const shopGoods = result.data
       commit(RECEIVE_SHOPGOODS, {shopGoods})
+      callback && callback()
     }
   },
   // 异步获取商家商品信息

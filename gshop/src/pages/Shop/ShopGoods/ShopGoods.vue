@@ -49,13 +49,30 @@
   </div>
 </template>
 <script>
+import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
 export default {
   mounted () {
-    this.$store.dispatch('getShopGoods')
+    this.$store.dispatch('getShopGoods', () => { // 将该匿名函数作为数据传入action中，在获取数据后执行
+      this.$nextTick(() => { // 列表数据更新后才执行该匿名函数
+        // eslint-disable-next-line no-new
+        new BScroll('.menu-wrapper') // 列表显示后才创建
+        // eslint-disable-next-line no-new
+        new BScroll('.foods-wrapper') // 列表显示后才创建
+      })
+    })
   },
   computed: {
-    ...mapState(['shopGoods'])
+    ...mapState(['shopGoods']),
+    currentIndex () {
+      return 0
+    }
+  },
+  data () {
+    return {
+      scrollY: 0, // 右侧滑动的Y轴坐标 （滑动过程实时变化）
+      tops: [] // 所有右侧分类li的top组成的数组 （列表第一次显示后就不再变化）
+    }
   }
 }
 </script>

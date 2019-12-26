@@ -23,6 +23,9 @@ export default {
   },
   components: {
     ShopHeader
+  },
+  computed: {
+    currentIndex: 0
   }
 }
 </script>
