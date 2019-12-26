@@ -13,7 +13,7 @@
           <div :class="{on: loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button :disabled="!right_phone" class="get_verification" :class="{right_phone: right_phone}"
+              <button :disabled="!rightPhone" class="get_verification" :class="{rightPhone: rightPhone}"
                       @click.prevent="getCode">{{computeTime > 0 ? `已发送(${computeTime}s)` : '获取验证码'}}</button>
             </section>
             <section class="login_verification">
@@ -78,7 +78,7 @@ export default {
     }
   },
   computed: {
-    right_phone () {
+    rightPhone () {
       return /^1\d{10}$/.test(this.phone)
     }
   },
@@ -113,15 +113,15 @@ export default {
       let result = ''
       // 前台表单验证
       if (this.loginWay) { // 登录方式 - 短信登录
-        const {right_phone, phone, code} = this
-        if (!right_phone) { // 手机号不正确
+        const {rightPhone, phone, code} = this
+        if (!rightPhone) { // 手机号不正确
           showAlert('手机号不正确')
           return
         } else if (!/^\d{6}$/.test(code)) { // 验证码必须是6位数字
           showAlert('验证码必须是6位数字')
           return
         }
-        result = await reqSmsLogin(this.phone, this.code)
+        result = await reqSmsLogin(phone, code)
       } else { // 登录方式 - 密码登录
         const {name, pwd, captcha} = this
         if (!this.name) { // 未输入用户名
@@ -134,7 +134,7 @@ export default {
           showAlert('未输入图形验证码')
           return
         }
-        result = await reqPwdLogin(this.phone, this.code)
+        result = await reqPwdLogin(name, pwd, captcha)
       }
 
       // 停止倒计时
@@ -237,7 +237,7 @@ export default {
                 color #ccc
                 font-size 14px
                 background transparent
-                &.right_phone
+                &.rightPhone
                   color #000
             .login_verification
               position relative

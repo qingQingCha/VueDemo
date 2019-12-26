@@ -20,7 +20,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      redirect: '/msite'
+      redirect: '/shop'
     },
     {
       path: '/msite',
