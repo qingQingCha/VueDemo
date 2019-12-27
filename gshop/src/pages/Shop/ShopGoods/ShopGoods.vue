@@ -52,9 +52,10 @@
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl'
+import Food from '../../../components/Food/Food'
 export default {
   components: {
-    CartControl
+    CartControl, Food
   },
   mounted () {
     this.$store.dispatch('getShopGoods', () => { // 将该匿名函数作为数据传入action中，在获取数据后执行
@@ -80,7 +81,8 @@ export default {
   data () {
     return {
       scrollY: 0, // 右侧滑动的Y轴坐标 （滑动过程实时变化）
-      tops: [] // 所有右侧分类li的top组成的数组 （列表第一次显示后就不再变化）
+      tops: [], // 所有右侧分类li的top组成的数组 （列表第一次显示后就不再变化）
+      food: {} // 需要显示的food
     }
   },
   // 主要用来存放 事件回调相关的方法，一般在初始化的init方法前加‘_’的前缀
@@ -125,6 +127,13 @@ export default {
       this.scrollY = this.tops[index]
       // 再滑动右侧列表
       this.foodsScroll.scrollTo(0, -this.scrollY, 300)
+    },
+    // 显示点击的food
+    showFood (food) {
+      // 设置food
+      this.food = food
+      // 显示food组件 (在父组件中调用子组件对象的方法)
+      this.$refs.food.toggleShow()
     }
   }
 }
