@@ -52,10 +52,11 @@
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl'
+import ShopCart from '../../../components/ShopCart/ShopCart'
 import Food from '../../../components/Food/Food'
 export default {
   components: {
-    CartControl, Food
+    CartControl, Food, ShopCart
   },
   mounted () {
     this.$store.dispatch('getShopGoods', () => { // 将该匿名函数作为数据传入action中，在获取数据后执行
