@@ -51,7 +51,24 @@ export default {
   },
   computed: {
     ...mapState(['cartFoods', 'info']),
-    ...mapGetters(['totalCount', 'totalPrice'])
+    ...mapGetters(['totalCount', 'totalPrice']),
+    // 由于payClass和payText的值使用到了其他值，所以将其设置为计算属性
+    payClass () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      return totalPrice < minPrice ? 'enough' : 'not-enough'
+    },
+    payText () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      if (totalPrice === 0) {
+        return `￥${minPrice}元起送`
+      } else if (totalPrice < minPrice) {
+        return `还差￥${minPrice - totalPrice}元起送`
+      } else {
+        return '去结算'
+      }
+    }
   }
 }
 </script>
