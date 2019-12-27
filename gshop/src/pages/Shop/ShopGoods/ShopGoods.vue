@@ -86,16 +86,16 @@ export default {
       // eslint-disable-next-line no-new
       new BScroll('.menu-wrapper') // 列表显示后才创建
       // 列表显示后才创建
-      const foodsScroll = new BScroll('.foods-wrapper', {
+      this.foodsScroll = new BScroll('.foods-wrapper', {
         probeType: 2, // 因为惯性滑动不会触发
         click: true
       })
       // 给右侧列表绑定scroll监听
-      foodsScroll.on('scroll', ({x, y}) => {
+      this.foodsScroll.on('scroll', ({x, y}) => {
         this.scrollY = Math.abs(y)
       })
       // 给右侧列表绑定scrollEnd监听
-      foodsScroll.on('scrollEnd', ({x, y}) => {
+      this.foodsScroll.on('scrollEnd', ({x, y}) => {
         this.scrollY = Math.abs(y)
       })
     },
@@ -114,6 +114,13 @@ export default {
         tops.push(top)
       })
       this.tops = tops
+    },
+    // 点击左侧分类，对应右侧列表滑动到相应分类
+    clickMenuItem (index) {
+      // 先更新右侧列表最终位置的scrollY值
+      this.scrollY = this.tops[index]
+      // 再滑动右侧列表
+      this.foodsScroll.scrollTo(0, -this.scrollY, 300)
     }
   }
 }
