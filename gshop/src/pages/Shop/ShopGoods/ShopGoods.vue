@@ -57,8 +57,14 @@ export default {
       this.$nextTick(() => { // 列表数据更新后才执行该匿名函数
         // eslint-disable-next-line no-new
         new BScroll('.menu-wrapper') // 列表显示后才创建
-        // eslint-disable-next-line no-new
-        new BScroll('.foods-wrapper') // 列表显示后才创建
+        // 列表显示后才创建
+        const foodsScorll = new BScroll('.foods-wrapper', {
+          probeType: 2 // 因为惯性滑动不会触发
+        })
+        // 给右侧列表绑定scroll监听
+        foodsScorll.on('scroll', ({x, y}) => {
+          this.scrollY = Math.abs(y)
+        })
       })
     })
   },
