@@ -1,7 +1,9 @@
 /**
  * 通过mutation间接更新state的多个方法的对象
  */
-import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO, LOGOUT_USER, RECEIVE_SHOPGOODS, RECEIVE_SHOPRATINGS, RECEIVE_SHOPINFO} from './mutation-types'
+import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO,
+  LOGOUT_USER, RECEIVE_SHOPGOODS, RECEIVE_SHOPRATINGS, RECEIVE_SHOPINFO,
+  INCREMENT_FOODCOUNT, DECREMENT_FOODCOUNT} from './mutation-types'
 import {
   reqAddress,
   reqFoodCategorys,
@@ -92,6 +94,14 @@ export default {
     if (result.code === 0) {
       const shopInfo = result.data
       commit(RECEIVE_SHOPINFO, {shopInfo})
+    }
+  },
+  // 同步更新单餐食物的数量
+  updateFoodCount ({commit}, {isAdd, food}) {
+    if (isAdd) {
+      commit(INCREMENT_FOODCOUNT, {food})
+    } else {
+      commit(DECREMENT_FOODCOUNT, {food})
     }
   }
 }

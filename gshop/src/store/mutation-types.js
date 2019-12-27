@@ -9,3 +9,5 @@ export const LOGOUT_USER = 'logout_user' // 退出登录
 export const RECEIVE_SHOPGOODS = 'receive_shopgoods' // 接收商家商品信息
 export const RECEIVE_SHOPRATINGS = 'receive_shopratings' // 接收商家评价信息
 export const RECEIVE_SHOPINFO = 'receive_shopinfo' // 接收商家信息
+export const INCREMENT_FOODCOUNT = 'increment_foodcount' // 接收商家信息
+export const DECREMENT_FOODCOUNT = 'decrement_foodcount' // 接收商家信息

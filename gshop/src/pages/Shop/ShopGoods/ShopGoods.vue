@@ -51,7 +51,11 @@
 <script>
 import BScroll from 'better-scroll'
 import {mapState} from 'vuex'
+import CartControl from '../../../components/CartControl/CartControl'
 export default {
+  components: {
+    CartControl
+  },
   mounted () {
     this.$store.dispatch('getShopGoods', () => { // 将该匿名函数作为数据传入action中，在获取数据后执行
       this.$nextTick(() => { // 列表数据更新后才执行该匿名函数
