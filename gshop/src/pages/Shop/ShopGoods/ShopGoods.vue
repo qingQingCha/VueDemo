@@ -94,6 +94,10 @@ export default {
       foodsScroll.on('scroll', ({x, y}) => {
         this.scrollY = Math.abs(y)
       })
+      // 给右侧列表绑定scrollEnd监听
+      foodsScroll.on('scrollEnd', ({x, y}) => {
+        this.scrollY = Math.abs(y)
+      })
     },
     // 初始化tops
     _initTop () {
