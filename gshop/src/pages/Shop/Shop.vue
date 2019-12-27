@@ -12,20 +12,19 @@
         <router-link to="/shop/info">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 <script>
 import ShopHeader from '../../components/ShopHeader/ShopHeader'
 export default {
   mounted () {
-    this.$store.dispatch('getShopGoods')
+    this.$store.dispatch('getShopInfo')
   },
   components: {
     ShopHeader
-  },
-  computed: {
-    currentIndex: 0
   }
 }
 </script>

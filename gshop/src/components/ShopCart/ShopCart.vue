@@ -10,7 +10,7 @@
             <div class="num" v-if="totalCount">{{totalCount}}</div>
           </div>
           <div class="price" :class="{highlight: totalCount}">￥{{totalPrice}}</div>
-          <div class="desc">另需配送费￥{{info.deliveryPrice}}元</div>
+          <div class="desc">另需配送费￥{{shopInfo.deliveryPrice}}元</div>
         </div>
         <div class="content-right">
           <div class="pay" :class="payClass">
@@ -49,18 +49,23 @@ export default {
   components: {
     CartControl
   },
+  data () {
+    return {
+      isShow: false
+    }
+  },
   computed: {
-    ...mapState(['cartFoods', 'info']),
+    ...mapState(['cartFoods', 'shopInfo']),
     ...mapGetters(['totalCount', 'totalPrice']),
     // 由于payClass和payText的值使用到了其他值，所以将其设置为计算属性
     payClass () {
       const {totalPrice} = this
-      const {minPrice} = this.info
-      return totalPrice < minPrice ? 'enough' : 'not-enough'
+      const {minPrice} = this.shopInfo
+      return totalPrice >= minPrice ? 'enough' : 'not-enough'
     },
     payText () {
       const {totalPrice} = this
-      const {minPrice} = this.info
+      const {minPrice} = this.shopInfo
       if (totalPrice === 0) {
         return `￥${minPrice}元起送`
       } else if (totalPrice < minPrice) {
