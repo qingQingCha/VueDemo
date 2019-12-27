@@ -55,29 +55,61 @@ export default {
   mounted () {
     this.$store.dispatch('getShopGoods', () => { // 将该匿名函数作为数据传入action中，在获取数据后执行
       this.$nextTick(() => { // 列表数据更新后才执行该匿名函数
-        // eslint-disable-next-line no-new
-        new BScroll('.menu-wrapper') // 列表显示后才创建
-        // 列表显示后才创建
-        const foodsScorll = new BScroll('.foods-wrapper', {
-          probeType: 2 // 因为惯性滑动不会触发
-        })
-        // 给右侧列表绑定scroll监听
-        foodsScorll.on('scroll', ({x, y}) => {
-          this.scrollY = Math.abs(y)
-        })
+        this._initScroll()
+        this._initTop()
       })
     })
   },
+  // 计算属性会在初始时及内部数据发生变化时初始或更新值
   computed: {
     ...mapState(['shopGoods']),
+    // 计算得到当前分类的下标，
     currentIndex () {
-      return 0
+      // 获取影响条件数据
+      const {scrollY, tops} = this
+      return tops.findIndex((top, index) => {
+        // 滑动Y坐标要大于等于某一li的top，小于该li的下一个li的top
+        return scrollY >= top && scrollY < tops[index + 1]
+      })
     }
   },
   data () {
     return {
       scrollY: 0, // 右侧滑动的Y轴坐标 （滑动过程实时变化）
       tops: [] // 所有右侧分类li的top组成的数组 （列表第一次显示后就不再变化）
+    }
+  },
+  // 主要用来存放 事件回调相关的方法，一般在初始化的init方法前加‘_’的前缀
+  methods: {
+    // 初始化滚动效果
+    _initScroll () {
+      // eslint-disable-next-line no-new
+      new BScroll('.menu-wrapper') // 列表显示后才创建
+      // 列表显示后才创建
+      const foodsScroll = new BScroll('.foods-wrapper', {
+        probeType: 2, // 因为惯性滑动不会触发
+        click: true
+      })
+      // 给右侧列表绑定scroll监听
+      foodsScroll.on('scroll', ({x, y}) => {
+        this.scrollY = Math.abs(y)
+      })
+    },
+    // 初始化tops
+    _initTop () {
+      // 1. 初始化tops
+      let tops = []
+      let top = 0
+      tops.push(top)
+      // 2. 收集
+      // 获取右侧所有列表每个li控件
+      // const lis = this.$refs.foodsUl.children
+      const lis = this.$refs.foodsUl.getElementsByClassName('food-list-hook')
+      Array.prototype.slice.call(lis).forEach(li => {
+        top += li.clientHeight
+        tops.push(top)
+      })
+      this.tops = tops
     }
   }
 }
