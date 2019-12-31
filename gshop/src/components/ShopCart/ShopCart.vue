@@ -106,7 +106,7 @@ export default {
       }
     },
     clearCart () {
-      MessageBox.confirm('Are you sure?').then(action => {
+      MessageBox.confirm('确定要清空购物车吗?').then(action => {
         this.$store.dispatch('clearCart')
       }, () => {})
     }
