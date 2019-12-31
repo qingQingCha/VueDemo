@@ -22,7 +22,7 @@
         <div class="shopcart-list" v-show="listShow">
           <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty" @click="clearCart">清空</span>
+            <span class="empty" >清空</span>
           </div>
           <div class="list-content">
             <ul>
@@ -72,6 +72,23 @@ export default {
         return `还差￥${minPrice - totalPrice}元起送`
       } else {
         return '去结算'
+      }
+    },
+    listShow () {
+      // 如果总数量为0，直接不显示
+      if (this.totalCount === 0) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.isShow = false
+        return false
+      }
+      return this.isShow
+    }
+  },
+  methods: {
+    toggleShow () {
+      // 只有总数量大于0时，才进行显示隐藏的切换
+      if (this.totalCount > 0) {
+        this.isShow = !this.isShow
       }
     }
   }
