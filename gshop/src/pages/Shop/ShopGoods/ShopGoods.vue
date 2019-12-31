@@ -3,7 +3,7 @@
     <div class="goods">
       <div class="menu-wrapper">
         <ul>
-          <!--current属性表示当前查看视频分类-->
+          <!--current属性表示当前查看食品分类-->
           <li class="menu-item" v-for="(good, index) in shopGoods" :key="index"
               :class="{current: index===currentIndex}" @click="clickMenuItem(index)">
             <span class="text bottom-border-1px">
@@ -91,7 +91,9 @@ export default {
     // 初始化滚动效果
     _initScroll () {
       // eslint-disable-next-line no-new
-      new BScroll('.menu-wrapper') // 列表显示后才创建
+      new BScroll('.menu-wrapper', {
+        click: true
+      })
       // 列表显示后才创建
       this.foodsScroll = new BScroll('.foods-wrapper', {
         probeType: 2, // 因为惯性滑动不会触发

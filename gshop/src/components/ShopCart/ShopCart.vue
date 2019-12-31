@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+import BScroll from 'better-scroll'
 import {mapState, mapGetters} from 'vuex'
 import CartControl from '../CartControl/CartControl.vue'
 export default {
@@ -80,6 +81,18 @@ export default {
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.isShow = false
         return false
+      }
+      if (this.isShow) {
+        this.$nextTick(() => {
+          if (!this.scroll) {
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            this.scroll = new BScroll('.list-content', {
+              click: true
+            })
+          } else {
+            this.scroll.refresh()
+          }
+        })
       }
       return this.isShow
     }
