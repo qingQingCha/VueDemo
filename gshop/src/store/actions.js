@@ -3,7 +3,7 @@
  */
 import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO,
   LOGOUT_USER, RECEIVE_SHOPGOODS, RECEIVE_SHOPRATINGS, RECEIVE_SHOPINFO,
-  INCREMENT_FOODCOUNT, DECREMENT_FOODCOUNT} from './mutation-types'
+  INCREMENT_FOODCOUNT, DECREMENT_FOODCOUNT, CLEAR_CART} from './mutation-types'
 import {
   reqAddress,
   reqFoodCategorys,
@@ -103,5 +103,10 @@ export default {
     } else {
       commit(DECREMENT_FOODCOUNT, {food})
     }
+  },
+
+  // 同步清空购物车
+  clearCart ({commit}) {
+    commit(CLEAR_CART)
   }
 }
