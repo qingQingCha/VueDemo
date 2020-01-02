@@ -3,7 +3,7 @@
  */
 import {RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USERINFO,
   LOGOUT_USER, RECEIVE_SHOPGOODS, RECEIVE_SHOPRATINGS, RECEIVE_SHOPINFO,
-  INCREMENT_FOODCOUNT, DECREMENT_FOODCOUNT, CLEAR_CART} from './mutation-types'
+  INCREMENT_FOODCOUNT, DECREMENT_FOODCOUNT, CLEAR_CART, RECEIVE_SEARCH_SHOPS} from './mutation-types'
 import Vue from 'vue'
 export default {
   [RECEIVE_ADDRESS] (state, {address}) {
@@ -64,5 +64,9 @@ export default {
     // eslint-disable-next-line no-return-assign
     state.cartFoods.forEach(food => food.count = 0) // 清除food中的count
     state.cartFoods = [] // 移除购物车中所有的购物项
+  },
+
+  [RECEIVE_SEARCH_SHOPS] (state, {searchShops}) {
+    state.searchShops = searchShops // 得到搜索到的商家列表信息
   }
 }
