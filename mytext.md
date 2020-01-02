@@ -51,3 +51,10 @@
 ## 滚动控件
   1. 安装
     - npm i --save better-scroll
+
+## 图片懒加载
+  - npm i --save vue-lazyload
+
+## 日期格式化
+  - npm i --save moment
+  - npm i --save date-fns
